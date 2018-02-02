@@ -67,13 +67,19 @@ namespace TelstraPOC.ViewModels
                 bool hostReachable = await CrossConnectivity.Current.IsRemoteReachable("https://dl.dropboxusercontent.com/");
                 if (hostReachable)
                 {
-                    var client = new System.Net.Http.HttpClient();
-                    var response = await client.GetStringAsync("https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json");
-                    //string jsonData = await response.Content.ReadAsStringAsync();
-                    var tr = JsonConvert.DeserializeObject<MainData>(response);
+                    try
+                    {
+                        var client = new System.Net.Http.HttpClient();
+                        var response = await client.GetStringAsync("https://dl.dropboxusercontent.com/s2iodh4vg0eortkl/facts.json");
+                        var tr = JsonConvert.DeserializeObject<MainData>(response);
 
-                    Title = tr.Title;
-                    Items = tr.Rows;
+                        Title = tr.Title;
+                        Items = tr.Rows;
+                    }
+                    catch
+                    {
+                        MessagingCenter.Send<string>("Error", "404Error");
+                    }
                 }
                 else
                 {
