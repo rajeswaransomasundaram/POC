@@ -120,6 +120,10 @@ namespace TelstraPOC.ViewModels
             }
         }
 
+        /// <summary>
+        /// Runs when Sort button clicked
+        /// </summary>
+        /// <value>The sort command.</value>
         public Command SortCommand
         {
             get
@@ -128,6 +132,10 @@ namespace TelstraPOC.ViewModels
             }
         }
 
+        /// <summary>
+        /// Runs when Load button clicked.
+        /// </summary>
+        /// <value>The load from file command.</value>
         public Command LoadFromFileCommand
         {
             get
@@ -136,20 +144,23 @@ namespace TelstraPOC.ViewModels
             }
         }
 
+        /// <summary>
+        /// Load list from File System
+        /// </summary>
         private void LoadFromFile()
         {
             var assembly = typeof(MyDataListPage).GetTypeInfo().Assembly;
-            Stream stream = assembly.GetManifestResourceStream("TelstraPOC.facts.json");
-
-            using (var reader = new System.IO.StreamReader(stream))
+            using (Stream stream = assembly.GetManifestResourceStream("TelstraPOC.facts.json"))
             {
+                using (var reader = new System.IO.StreamReader(stream))
+                {
 
-                var json = reader.ReadToEnd();
-                var data = JsonConvert.DeserializeObject<MainData>(json);
-                Title = data.Title;
-                Items = data.Rows;
+                    var json = reader.ReadToEnd();
+                    var data = JsonConvert.DeserializeObject<MainData>(json);
+                    Title = data.Title;
+                    Items = data.Rows;
+                }
             }
-
 
         }
 
