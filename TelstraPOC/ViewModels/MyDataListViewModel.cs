@@ -139,7 +139,7 @@ namespace TelstraPOC.ViewModels
         private void LoadFromFile()
         {
             var assembly = typeof(MyDataListPage).GetTypeInfo().Assembly;
-            Stream stream = assembly.GetManifestResourceStream("facts.json");
+            Stream stream = assembly.GetManifestResourceStream("TelstraPOC.facts.json");
 
             using (var reader = new System.IO.StreamReader(stream))
             {
