@@ -47,6 +47,7 @@
     <Compile Include="Models\MainData.cs" />
     <Compile Include="Models\MyDataDetails.cs" />
     <Compile Include="Converters\ImageConverter.cs" />
+    <Compile Include="Models\Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

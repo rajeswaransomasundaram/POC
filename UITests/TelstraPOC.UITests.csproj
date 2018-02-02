@@ -46,6 +46,10 @@
       <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\TelstraPOC\TelstraPOC.csproj">
+      <Project>{7412E831-03E7-41BA-807F-4EC3A60D9B97}</Project>
+      <Name>TelstraPOC</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tests.cs" />

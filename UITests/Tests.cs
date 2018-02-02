@@ -4,7 +4,8 @@ using System.Linq;
 using NUnit.Framework;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
-
+using TelstraPOC.Models;
+using TelstraPOC.ViewModels;
 namespace TelstraPOC.UITests
 {
     [TestFixture(Platform.Android)]
@@ -30,7 +31,8 @@ namespace TelstraPOC.UITests
         {
             AppResult[] results = app.WaitForElement(c => c.Marked("Welcome to Xamarin Forms!"));
             app.Screenshot("Welcome screen.");
-
+            Settings.JsonURL = "";
+            MyDataListViewModel x = new MyDataListViewModel();
             Assert.IsTrue(results.Any());
         }
     }

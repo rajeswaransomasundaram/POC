@@ -64,31 +64,33 @@ namespace TelstraPOC.ViewModels
         {
             if (CrossConnectivity.Current.IsConnected)
             {
-                bool hostReachable = await CrossConnectivity.Current.IsRemoteReachable("https://dl.dropboxusercontent.com/");
+                Uri myUri = new Uri(Settings.JsonURL);
+                string host = myUri.Host;
+                bool hostReachable = await CrossConnectivity.Current.IsRemoteReachable(host);
                 if (hostReachable)
                 {
                     try
                     {
                         var client = new System.Net.Http.HttpClient();
-                        var response = await client.GetStringAsync("https://dl.dropboxusercontent.com/facts.json");
+                        var response = await client.GetStringAsync(Settings.JsonURL);
                         var tr = JsonConvert.DeserializeObject<MainData>(response);
 
                         Title = tr.Title;
                         Items = tr.Rows;
                     }
-                    catch
+                    catch(Exception ex)
                     {
-                        MessagingCenter.Send<string>("Error", "404Error");
+                        MessagingCenter.Send<string,string>("Error", "AppError",ex.Message);
                     }
                 }
                 else
                 {
-                    MessagingCenter.Send<string>("Error", "HostError");
+                    MessagingCenter.Send<string,string>("Error", "AppError","Host not reachable");
                 }
             }
             else
             {
-                MessagingCenter.Send<string>("Error", "ConnectionError");
+                MessagingCenter.Send<string,string>("Error", "AppError","Network Connection not available");
             }
 
         }
@@ -155,17 +157,24 @@ namespace TelstraPOC.ViewModels
         /// </summary>
         private void LoadFromFile()
         {
-            var assembly = typeof(MyDataListPage).GetTypeInfo().Assembly;
-            using (Stream stream = assembly.GetManifestResourceStream("TelstraPOC.facts.json"))
+            try
             {
-                using (var reader = new System.IO.StreamReader(stream))
+                var assembly = typeof(MyDataListPage).GetTypeInfo().Assembly;
+                using (Stream stream = assembly.GetManifestResourceStream("TelstraPOC.facts.json"))
                 {
+                    using (var reader = new System.IO.StreamReader(stream))
+                    {
 
-                    var json = reader.ReadToEnd();
-                    var data = JsonConvert.DeserializeObject<MainData>(json);
-                    Title = data.Title;
-                    Items = data.Rows;
+                        var json = reader.ReadToEnd();
+                        var data = JsonConvert.DeserializeObject<MainData>(json);
+                        Title = data.Title;
+                        Items = data.Rows;
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                MessagingCenter.Send<string, string>("Error", "AppError", ex.Message); 
             }
 
         }
@@ -184,6 +193,7 @@ namespace TelstraPOC.ViewModels
         } 
         public MyDataListViewModel()
         {
+            
             LoadData();
         }
     }
