@@ -70,7 +70,7 @@ namespace TelstraPOC.ViewModels
                     try
                     {
                         var client = new System.Net.Http.HttpClient();
-                        var response = await client.GetStringAsync("https://dl.dropboxusercontent.com/s2iodh4vg0eortkl/facts.json");
+                        var response = await client.GetStringAsync("https://dl.dropboxusercontent.com/facts.json");
                         var tr = JsonConvert.DeserializeObject<MainData>(response);
 
                         Title = tr.Title;

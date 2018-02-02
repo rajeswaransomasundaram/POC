@@ -27,10 +27,10 @@ namespace TelstraPOC.Views
                 DisplayAlert("Error", "Host Not Reachable", "OK");
             });
 
-            MessagingCenter.Subscribe<string>("Error","404Error",(sender)=>
-            {
-                DisplayAlert("Error", "Error 404 not found", "OK");
-            }
+            MessagingCenter.Subscribe<string>("Error", "404Error", (sender) =>
+              {
+                  DisplayAlert("Error", "Error 404 not found", "OK");
+              });
         }
 
         protected override void OnDisappearing()
