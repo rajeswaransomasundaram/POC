@@ -36,6 +36,8 @@ namespace TelstraPOC.ViewModels
             }
         }
 
+       
+
         public string EntryURL
         {
             get
@@ -56,6 +58,11 @@ namespace TelstraPOC.ViewModels
         private string _entryURL
         { get; set; }
 
+        private bool _entryEnabled         { get; set; }
+
+
+        public bool EntryEnabled         {             get             {                 return _entryEnabled;             }             set             {                 _entryEnabled = value;                 OnPropertyChanged("EntryEnabled");             }
+        } 
 
         private ObservableCollection<MyDataDetails> m_Items { get; set; }
         /// <summary>
@@ -80,6 +87,7 @@ namespace TelstraPOC.ViewModels
         /// </summary>
         private async void LoadData()
         {
+            EntryEnabled = false;
             if (CrossConnectivity.Current.IsConnected)
             {
                 Items = null;
@@ -97,22 +105,28 @@ namespace TelstraPOC.ViewModels
 
                         Title = tr.Title;
                         Items = tr.Rows;
+                        EntryEnabled = true;
+
                     }
                     catch(Exception ex)
                     {
+                        EntryEnabled = true;
                         MessagingCenter.Send<string,string>("Error", "AppError",ex.Message);
                     }
                 }
                 else
                 {
+                    EntryEnabled = true;
+
                     MessagingCenter.Send<string,string>("Error", "AppError","Host not reachable");
                 }
             }
             else
             {
+                EntryEnabled = true;
+
                 MessagingCenter.Send<string,string>("Error", "AppError","Network Connection not available");
             }
-
         }
 
         /// <summary>
@@ -213,6 +227,7 @@ namespace TelstraPOC.ViewModels
         } 
         public MyDataListViewModel()
         {
+            EntryEnabled = false;
             EntryURL = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json";
             LoadData();
         }

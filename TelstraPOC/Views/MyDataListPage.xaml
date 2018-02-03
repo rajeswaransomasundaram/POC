@@ -16,7 +16,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="40" />
             </Grid.RowDefinitions>
-            <Entry AutomationId="EntryURL" Grid.Row="0" Text="{Binding EntryURL}" />
+            <Entry AutomationId="EntryURL" Grid.Row="0" Text="{Binding EntryURL}" IsEnabled="{Binding EntryURL}" />
             <Label Text="{Binding Title}" AutomationId="Title" FontSize="24" Grid.Row="1" HorizontalOptions="Center" FontAttributes="Bold" />
             <ListView CachingStrategy="RecycleElement"  x:Name="lstView" AutomationId="DataList" ItemsSource="{Binding Items}" Grid.Row="2" HasUnevenRows="true">
                 <ListView.ItemTemplate>

@@ -31,13 +31,20 @@ namespace TelstraPOC.UITests
         [Test]
         public void ListViewAllDataPresent()
         {
-            
-            System.Threading.Thread.Sleep(8000);
+            //app.Repl();
+
+            //System.Threading.Thread.Sleep(8000);
+            Console.WriteLine("Waiting for Entry enable");
+            app.WaitFor(()=> app.Query(v => v.Marked("EntryURL")).FirstOrDefault().Enabled);
+
+            Console.WriteLine("Entry Enabled");
             app.ClearText("EntryURL");
             app.EnterText("EntryURL","https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json");
             app.Tap("Refresh");
+            System.Threading.Thread.Sleep(2000);
+            app.WaitFor(() => app.Query(v => v.Marked("EntryURL")).FirstOrDefault().Enabled);
 
-            System.Threading.Thread.Sleep(5000);
+            //System.Threading.Thread.Sleep(5000);
  
             var countList = app.Query(e => e.Marked("DataList").Descendant().Child()).Length;
              
@@ -50,14 +57,18 @@ namespace TelstraPOC.UITests
         [Test]
         public void ListViewNoData()
         {
+            Console.WriteLine("Waiting for Entry enable");
+            app.WaitFor(() => app.Query(v => v.Marked("EntryURL")).FirstOrDefault().Enabled);
 
-            System.Threading.Thread.Sleep(8000);
+            Console.WriteLine("Entry Enabled");
+            // System.Threading.Thread.Sleep(8000);
             app.ClearText("EntryURL");
             app.EnterText("EntryURL", "https://dl.dropboxusercontent.com/s/facts.json");
             app.Tap("Refresh");
+            System.Threading.Thread.Sleep(2000);
+            app.WaitFor(() => app.Query(v => v.Marked("EntryURL")).FirstOrDefault().Enabled);
 
-            System.Threading.Thread.Sleep(5000);
-
+             
             var countList = app.Query(e => e.Marked("DataList").Descendant().Child()).Length;
 
             Console.WriteLine(countList.ToString());
