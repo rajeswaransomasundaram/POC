@@ -36,8 +36,26 @@ namespace TelstraPOC.ViewModels
             }
         }
 
+        public string EntryURL
+        {
+            get
+            {
+                
+                return _entryURL;
+            }
+            set
+            {
+                _entryURL = value;
+                OnPropertyChanged("EntryURL");
+            }
+        }
+
         private string _title
         { get; set; }
+
+        private string _entryURL
+        { get; set; }
+
 
         private ObservableCollection<MyDataDetails> m_Items { get; set; }
         /// <summary>
@@ -64,15 +82,17 @@ namespace TelstraPOC.ViewModels
         {
             if (CrossConnectivity.Current.IsConnected)
             {
-                Uri myUri = new Uri(Settings.JsonURL);
+                Items = null;
+                Uri myUri = new Uri(_entryURL);
                 string host = myUri.Host;
                 bool hostReachable = await CrossConnectivity.Current.IsRemoteReachable(host);
                 if (hostReachable)
                 {
                     try
                     {
+
                         var client = new System.Net.Http.HttpClient();
-                        var response = await client.GetStringAsync(Settings.JsonURL);
+                        var response = await client.GetStringAsync(_entryURL);
                         var tr = JsonConvert.DeserializeObject<MainData>(response);
 
                         Title = tr.Title;
@@ -193,7 +213,7 @@ namespace TelstraPOC.ViewModels
         } 
         public MyDataListViewModel()
         {
-            
+            EntryURL = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json";
             LoadData();
         }
     }

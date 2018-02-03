@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FFImageLoading.Forms.Touch;
 using Foundation;
+using TelstraPOC.Models;
 using UIKit;
 
 namespace TelstraPOC.iOS
@@ -23,5 +24,6 @@ namespace TelstraPOC.iOS
             CachedImageRenderer.Init();
             return base.FinishedLaunching(app, options);
         }
+         
     }
 }

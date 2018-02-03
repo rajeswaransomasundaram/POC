@@ -24,16 +24,50 @@ namespace TelstraPOC.UITests
         public void BeforeEachTest()
         {
             app = AppInitializer.StartApp(platform);
+
+        }
+
+
+        [Test]
+        public void ListViewAllDataPresent()
+        {
+            
+            System.Threading.Thread.Sleep(8000);
+            app.ClearText("EntryURL");
+            app.EnterText("EntryURL","https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json");
+            app.Tap("Refresh");
+
+            System.Threading.Thread.Sleep(5000);
+ 
+            var countList = app.Query(e => e.Marked("DataList").Descendant().Child()).Length;
+             
+            Console.WriteLine(countList.ToString());
+            app.Screenshot("ListViewAllPresent");
+            Assert.AreNotEqual(countList, 0);
+            
         }
 
         [Test]
-        public void WelcomeTextIsDisplayed()
+        public void ListViewNoData()
         {
-            AppResult[] results = app.WaitForElement(c => c.Marked("Welcome to Xamarin Forms!"));
-            app.Screenshot("Welcome screen.");
-            Settings.JsonURL = "";
-            MyDataListViewModel x = new MyDataListViewModel();
-            Assert.IsTrue(results.Any());
+
+            System.Threading.Thread.Sleep(8000);
+            app.ClearText("EntryURL");
+            app.EnterText("EntryURL", "https://dl.dropboxusercontent.com/s/facts.json");
+            app.Tap("Refresh");
+
+            System.Threading.Thread.Sleep(5000);
+
+            var countList = app.Query(e => e.Marked("DataList").Descendant().Child()).Length;
+
+            Console.WriteLine(countList.ToString());
+
+            app.Screenshot("ListViewNoData");
+            Assert.AreNotEqual(countList, 0);
+
         }
+
+
+        
     }
 }

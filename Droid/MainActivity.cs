@@ -6,6 +6,7 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using TelstraPOC.Models;
 using Android.OS;
 
 namespace TelstraPOC.Droid
@@ -25,5 +26,7 @@ namespace TelstraPOC.Droid
             LoadApplication(new App());
             CachedImageRenderer.Init(true);
         }
+
+         
     }
 }

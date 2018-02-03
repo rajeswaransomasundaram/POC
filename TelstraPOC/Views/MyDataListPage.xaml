@@ -11,12 +11,14 @@
                 <OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
             </Grid.Padding>
             <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="40" />
             </Grid.RowDefinitions>
-            <Label Text="{Binding Title}" FontSize="24" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
-            <ListView CachingStrategy="RecycleElement" x:Name="lstView" AutomationId="DataList" ItemsSource="{Binding Items}" Grid.Row="1" HasUnevenRows="true">
+            <Entry AutomationId="EntryURL" Grid.Row="0" Text="{Binding EntryURL}" />
+            <Label Text="{Binding Title}" AutomationId="Title" FontSize="24" Grid.Row="1" HorizontalOptions="Center" FontAttributes="Bold" />
+            <ListView CachingStrategy="RecycleElement"  x:Name="lstView" AutomationId="DataList" ItemsSource="{Binding Items}" Grid.Row="2" HasUnevenRows="true">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell x:Name="viewCell">
@@ -43,7 +45,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Grid Grid.Row="2" Grid.Column="0">
+            <Grid Grid.Row="3" Grid.Column="0">
                 <Grid.RowDefinitions>
                 <RowDefinition/>
                 </Grid.RowDefinitions>
