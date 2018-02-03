@@ -43,8 +43,8 @@ namespace TelstraPOC.UITests
              
             Console.WriteLine(countList.ToString());
             app.Screenshot("ListViewAllPresent");
-            Assert.AreNotEqual(countList, 0);
-            
+            Assert.Greater(countList, 0);
+
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace TelstraPOC.UITests
             Console.WriteLine(countList.ToString());
 
             app.Screenshot("ListViewNoData");
-            Assert.AreNotEqual(countList, 0);
+            Assert.Greater(countList, 0);
 
         }
 
