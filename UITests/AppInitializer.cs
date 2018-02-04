@@ -15,7 +15,7 @@ namespace TelstraPOC.UITests
                 return ConfigureApp.Android.StartApp();
             }
 
-            return ConfigureApp.iOS.StartApp();
+            return ConfigureApp.iOS.DeviceIdentifier("80641746-B20C-42F2-9975-D925960CAB75").InstalledApp("com.companyname.TelstraPOC").StartApp();
         }
     }
 }

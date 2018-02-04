@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:local="clr-namespace:TelstraPOC.Converters"  x:Class="TelstraPOC.Views.MyDataListPage">
-<ContentPage.Resources>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:local="clr-namespace:TelstraPOC.Converters" x:Class="TelstraPOC.Views.MyDataListPage">
+    <ContentPage.Resources>
         <ResourceDictionary>
             <local:ImageConverter x:Key="imgConverter" />
         </ResourceDictionary>
@@ -11,35 +11,35 @@
                 <OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
             </Grid.Padding>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="40" />
             </Grid.RowDefinitions>
             <Entry AutomationId="EntryURL" Grid.Row="0" Text="{Binding EntryURL}" IsEnabled="{Binding EntryURL}" />
             <Label Text="{Binding Title}" AutomationId="Title" FontSize="24" Grid.Row="1" HorizontalOptions="Center" FontAttributes="Bold" />
-            <ListView CachingStrategy="RecycleElement"  x:Name="lstView" AutomationId="DataList" ItemsSource="{Binding Items}" Grid.Row="2" HasUnevenRows="true">
+            <ListView CachingStrategy="RecycleElement" x:Name="lstView" AutomationId="DataList" ItemsSource="{Binding Items}" Grid.Row="2" HasUnevenRows="true">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell x:Name="viewCell">
-                            <Grid>
+                            <Grid AutomationId="ListGrid">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="120"/>
-                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="20" />
                                 </Grid.ColumnDefinitions>
                                 <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Padding="10">
                                     <Label Text="{Binding Title}" FontSize="24" FontAttributes="Bold" TextColor="Purple" HorizontalOptions="StartAndExpand" />
                                 </StackLayout>
                                 <StackLayout Grid.Row="1" Grid.Column="0" Padding="10">
                                     <Label Text="{Binding Description}" VerticalOptions="StartAndExpand" />
-                                </StackLayout> 
-                                <ffimageloading:CachedImage Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" Margin="10" VerticalOptions="Center" HeightRequest="100" WidthRequest="100"  Source="{Binding ImageHref, Converter={StaticResource imgConverter}}" LoadingPlaceholder="placeholderProfileImage.png" ErrorPlaceholder="placeholderProfileImage.png"/>
-                                <Label Text="&gt;" FontSize="20" Grid.Row="0" Margin="5" FontAttributes="Bold" Grid.RowSpan="2" Grid.Column="2" VerticalOptions="Center" /> 
+                                </StackLayout>
+                                <ffimageloading:CachedImage Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" Margin="10" VerticalOptions="Center" HeightRequest="100" WidthRequest="100" Source="{Binding ImageHref, Converter={StaticResource imgConverter}}" LoadingPlaceholder="placeholderProfileImage.png" ErrorPlaceholder="placeholderProfileImage.png" />
+                                <Label Text="&gt;" FontSize="20" Grid.Row="0" Margin="5" FontAttributes="Bold" Grid.RowSpan="2" Grid.Column="2" VerticalOptions="Center" />
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
@@ -47,38 +47,29 @@
             </ListView>
             <Grid Grid.Row="3" Grid.Column="0">
                 <Grid.RowDefinitions>
-                <RowDefinition/>
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-            <Button Grid.Row="0" Grid.Column="0" Text="Refresh" AutomationId="Refresh" Command="{Binding RefreshCommand}"  HeightRequest="40" HorizontalOptions="StartAndExpand">
-                    <Button.WidthRequest>
-                        <OnPlatform x:TypeArguments="x:Double" iOS="120" Android="90" />
-                    </Button.WidthRequest>
+                <Button Grid.Row="0" Grid.Column="0" Text="Refresh" AutomationId="Refresh" Command="{Binding RefreshCommand}" HeightRequest="40" HorizontalOptions="Fill" VerticalOptions="Fill">
                     <Button.FontSize>
-                        <OnPlatform x:TypeArguments="x:Double" iOS="18" Android="13" /> 
+                        <OnPlatform x:TypeArguments="x:Double" iOS="18" Android="13" />
                     </Button.FontSize>
                 </Button>
-                <Button Grid.Row="0" Grid.Column="1" Text="Load" AutomationId="Load" Command="{Binding LoadFromFileCommand}" HeightRequest="40" HorizontalOptions="StartAndExpand">
-                    <Button.WidthRequest>
-                        <OnPlatform x:TypeArguments="x:Double" iOS="120" Android="90" />
-                    </Button.WidthRequest>
+                <Button Grid.Row="0" Grid.Column="1" Text="Load" AutomationId="Load" Command="{Binding LoadFromFileCommand}" HeightRequest="40" HorizontalOptions="Fill" VerticalOptions="Fill">
                     <Button.FontSize>
-                        <OnPlatform x:TypeArguments="x:Double" iOS="18" Android="13" /> 
+                        <OnPlatform x:TypeArguments="x:Double" iOS="18" Android="13" />
                     </Button.FontSize>
                 </Button>
-                <Button Grid.Row="0" Grid.Column="2" Text="Sort" AutomationId="Sort" Command="{Binding SortCommand}" HeightRequest="40" HorizontalOptions="StartAndExpand">
-                    <Button.WidthRequest>
-                        <OnPlatform x:TypeArguments="x:Double" iOS="120" Android="90" />
-                    </Button.WidthRequest>
+                <Button Grid.Row="0" Grid.Column="2" Text="Sort" AutomationId="Sort" Command="{Binding SortCommand}" HeightRequest="40" HorizontalOptions="Fill" VerticalOptions="Fill">
                     <Button.FontSize>
-                        <OnPlatform x:TypeArguments="x:Double" iOS="18" Android="13" /> 
+                        <OnPlatform x:TypeArguments="x:Double" iOS="18" Android="13" />
                     </Button.FontSize>
                 </Button>
             </Grid>
         </Grid>
-	</ContentPage.Content>
+    </ContentPage.Content>
 </ContentPage>
