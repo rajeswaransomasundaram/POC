@@ -17,7 +17,7 @@ namespace TelstraPOC.ViewModels
     {
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private bool asc=true;
+        private bool asc = true;
 
         /// <summary>
         /// Gets or sets the title.
@@ -36,47 +36,23 @@ namespace TelstraPOC.ViewModels
             }
         }
 
-       
-
-        public string EntryURL
-        {
-            get
-            {
-                
-                return _entryURL;
-            }
-            set
-            {
-                _entryURL = value;
-                OnPropertyChanged("EntryURL");
-            }
-        }
-
         private string _title
         { get; set; }
 
-        private string _entryURL
-        { get; set; }
-
-        private bool _entryEnabled         { get; set; }
-
-
-        public bool EntryEnabled         {             get             {                 return _entryEnabled;             }             set             {                 _entryEnabled = value;                 OnPropertyChanged("EntryEnabled");             }
-        } 
-
-        private ObservableCollection<MyDataDetails> m_Items { get; set; }
+        private ObservableCollection<MyDataDetails> _items { get; set; }
         /// <summary>
         /// Gets or sets the items from JSON feed.
         /// </summary>
         /// <value>The items.</value>
         public ObservableCollection<MyDataDetails> Items
         {
-            get{
-                return m_Items;
+            get
+            {
+                return _items;
             }
             set
             {
-                m_Items = value;
+                _items = value;
                 OnPropertyChanged("Items");
             }
         }
@@ -87,45 +63,35 @@ namespace TelstraPOC.ViewModels
         /// </summary>
         private async void LoadData()
         {
-            EntryEnabled = false;
             if (CrossConnectivity.Current.IsConnected)
             {
                 Items = null;
-                Uri myUri = new Uri(_entryURL);
+                Uri myUri = new Uri(Settings.JsonURL);
                 string host = myUri.Host;
                 bool hostReachable = await CrossConnectivity.Current.IsRemoteReachable(host);
                 if (hostReachable)
                 {
                     try
-                    {
-
+                    { 
                         var client = new System.Net.Http.HttpClient();
-                        var response = await client.GetStringAsync(_entryURL);
-                        var tr = JsonConvert.DeserializeObject<MainData>(response);
-
+                        var response = await client.GetStringAsync(Settings.JsonURL);
+                        var tr = JsonConvert.DeserializeObject<MainData>(response); 
                         Title = tr.Title;
                         Items = tr.Rows;
-                        EntryEnabled = true;
-
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
-                        EntryEnabled = true;
-                        MessagingCenter.Send<string,string>("Error", "AppError",ex.Message);
+                        MessagingCenter.Send<string, string>("Error", "AppError", ex.Message);
                     }
                 }
                 else
                 {
-                    EntryEnabled = true;
-
-                    MessagingCenter.Send<string,string>("Error", "AppError","Host not reachable");
+                    MessagingCenter.Send<string, string>("Error", "AppError", "Host not reachable");
                 }
             }
             else
             {
-                EntryEnabled = true;
-
-                MessagingCenter.Send<string,string>("Error", "AppError","Network Connection not available");
+                MessagingCenter.Send<string, string>("Error", "AppError", "Network Connection not available");
             }
         }
 
@@ -134,7 +100,6 @@ namespace TelstraPOC.ViewModels
         /// </summary>
         private void SortData()
         {
-            //Items = new ObservableCollection<MyDataDetails>(from data in Items orderby data.Title select data);
             if (asc)
             {
                 Items = new ObservableCollection<MyDataDetails>(Items.OrderBy(x => x.Title).ToList());
@@ -155,7 +120,6 @@ namespace TelstraPOC.ViewModels
         /// <value>The refresh command.</value>
         public Command RefreshCommand
         {
-
             get
             {
                 return new Command(() => { LoadData(); });
@@ -198,7 +162,6 @@ namespace TelstraPOC.ViewModels
                 {
                     using (var reader = new System.IO.StreamReader(stream))
                     {
-
                         var json = reader.ReadToEnd();
                         var data = JsonConvert.DeserializeObject<MainData>(json);
                         Title = data.Title;
@@ -206,9 +169,9 @@ namespace TelstraPOC.ViewModels
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessagingCenter.Send<string, string>("Error", "AppError", ex.Message); 
+                MessagingCenter.Send<string, string>("Error", "AppError", ex.Message);
             }
 
         }
@@ -224,11 +187,9 @@ namespace TelstraPOC.ViewModels
             {
                 handler(this, new PropertyChangedEventArgs(name));
             }
-        } 
+        }
         public MyDataListViewModel()
-        {
-            EntryEnabled = false;
-            EntryURL = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json";
+        { 
             LoadData();
         }
     }

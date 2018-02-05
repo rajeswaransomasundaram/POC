@@ -12,13 +12,11 @@
             </Grid.Padding>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="40" />
             </Grid.RowDefinitions>
-            <Entry AutomationId="EntryURL" Grid.Row="0" Text="{Binding EntryURL}" IsEnabled="{Binding EntryURL}" />
-            <Label Text="{Binding Title}" AutomationId="Title" FontSize="24" Grid.Row="1" HorizontalOptions="Center" FontAttributes="Bold" />
-            <ListView CachingStrategy="RecycleElement" x:Name="lstView" AutomationId="DataList" ItemsSource="{Binding Items}" Grid.Row="2" HasUnevenRows="true">
+            <Label Text="{Binding Title}" AutomationId="Title" FontSize="24" Grid.Row="0" HorizontalOptions="Center" FontAttributes="Bold" />
+            <ListView CachingStrategy="RecycleElement" x:Name="lstView" AutomationId="DataList" ItemsSource="{Binding Items}" Grid.Row="1" HasUnevenRows="true">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell x:Name="viewCell">
@@ -36,7 +34,7 @@
                                     <Label Text="{Binding Title}" FontSize="24" FontAttributes="Bold" TextColor="Purple" HorizontalOptions="StartAndExpand" />
                                 </StackLayout>
                                 <StackLayout Grid.Row="1" Grid.Column="0" Padding="10">
-                                    <Label Text="{Binding Description}" VerticalOptions="StartAndExpand" />
+                                    <Label Text="{Binding Description}" FontSize="10" VerticalOptions="StartAndExpand" />
                                 </StackLayout>
                                 <ffimageloading:CachedImage Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" Margin="10" VerticalOptions="Center" HeightRequest="100" WidthRequest="100" Source="{Binding ImageHref, Converter={StaticResource imgConverter}}" LoadingPlaceholder="placeholderProfileImage.png" ErrorPlaceholder="placeholderProfileImage.png" />
                                 <Label Text="&gt;" FontSize="20" Grid.Row="0" Margin="5" FontAttributes="Bold" Grid.RowSpan="2" Grid.Column="2" VerticalOptions="Center" />
@@ -45,7 +43,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Grid Grid.Row="3" Grid.Column="0">
+            <Grid Grid.Row="2" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                 </Grid.RowDefinitions>

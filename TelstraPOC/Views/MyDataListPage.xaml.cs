@@ -9,8 +9,7 @@ namespace TelstraPOC.Views
     {
         public MyDataListPage()
         {
-            InitializeComponent();
-
+            InitializeComponent(); 
             BindingContext = new MyDataListViewModel();
         }
 
